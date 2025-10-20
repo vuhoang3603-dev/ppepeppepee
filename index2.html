@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thiệp 20/10 🎁</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffe6f2, #fff5f9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: "Segoe UI", sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gift-container {
+      position: relative;
+      display: inline-block;
+      z-index: 2;
+    }
+
+    .gift-container img {
+      width: 250px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: opacity 0.5s ease;
+    }
+
+    .gift-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: white;
+      font-weight: bold;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    #flowers {
+      width: 250px;
+      border-radius: 20px;
+      animation: float 2s ease-in-out infinite;
+      display: none;
+      z-index: 2;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    #message {
+      font-size: 24px;
+      color: #e91e63;
+      font-weight: bold;
+      margin-top: 20px;
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 2;
+    }
+
+    #letter {
+      width: 200px;
+      display: none;
+      position: fixed; 
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.5s ease, opacity 0.5s ease;
+      cursor: pointer;
+      z-index: 3;
+      transform-origin: center center;
+    }
+
+    #letter.opened {
+      transform: translate(-50%, -50%) scale(2);
+    }
+
+    #note {
+      display: none;
+      position: fixed; 
+      top: 50%; 
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 4;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 300px;
+      text-align: center;
+      font-size: 18px;
+      color: #444;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease forwards;
+    }
+
+    /* 🌸 Cánh hoa rơi */
+    .petal {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.9;
+      animation-name: fall;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.3;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gift-container">
+    <img id="gift" src="Hình ảnh/aaaaaaaaaaaaa.png" alt="Tặng nè">
+    <div class="gift-text">Tặng nè</div>
+  </div>
+
+  <img id="flowers" src="Hình ảnh/—Pngtree—pink bouquet of flowers hand_3864205.png" alt="Bó hoa">
+
+  <div id="message">Chúc mừng ngày 20/10 vui vẻ 💖</div>
+
+  <img id="letter" src="Hình ảnh/—Pngtree—love letter in minimalism and_6083833.png" alt="Lá thư">
+
+  <div id="note">💌 Chúc Cvy một ngày 20/10 thật nhiều niềm vui, nụ cười và hạnh phúc! 🌷</div>
+
+  <audio id="soundHappy" src="https://cdn.pixabay.com/download/audio/2023/03/20/audio_5555f1d0f0.mp3" preload="auto"></audio>
+
+  <script>
+    const gift = document.getElementById("gift");
+    const giftText = document.querySelector(".gift-text");
+    const flowers = document.getElementById("flowers");
+    const message = document.getElementById("message");
+    const letter = document.getElementById("letter");
+    const note = document.getElementById("note");
+    const sound = document.getElementById("soundHappy");
+
+    // 🌸 Tạo hoa rơi bằng ảnh PNG
+    function createPetals(count) {
+      for (let i = 0; i < count; i++) {
+        const petal = document.createElement("img");
+        petal.classList.add("petal");
+        petal.src = "Hình ảnh/Lovepik_com-832340894-Hand-painted flowers cute cartoon rose flower group vector mater.png"; // ảnh hoa PNG trong suốt
+        petal.style.left = Math.random() * window.innerWidth + "px";
+        petal.style.top = "-50px";
+        petal.style.animationDuration = (5 + Math.random() * 5) + "s";
+        petal.style.animationDelay = Math.random() * 5 + "s";
+        petal.style.width = 15 + Math.random() * 20 + "px"; // cỡ ngẫu nhiên
+        document.body.appendChild(petal);
+      }
+    }
+
+    createPetals(50); // số hoa rơi
+
+    gift.addEventListener("click", () => {
+      sound.play();
+      gift.style.opacity = "0";
+      giftText.style.opacity = "0";
+      setTimeout(() => {
+        gift.style.display = "none";
+        giftText.style.display = "none";
+        flowers.style.display = "block";
+        setTimeout(() => {
+          message.style.opacity = "1";
+          setTimeout(() => {
+            letter.style.display = "block";
+          }, 3000);
+        }, 1000);
+      }, 800);
+    });
+
+    letter.addEventListener("click", () => {
+      letter.classList.toggle("opened");
+      if (letter.classList.contains("opened")) {
+        setTimeout(() => {
+          note.style.display = "block";
+        }, 500);
+      } else {
+        note.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
